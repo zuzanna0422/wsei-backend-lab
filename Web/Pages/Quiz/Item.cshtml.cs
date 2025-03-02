@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
+using static BackendLab01.Pages.Summary;
 
 namespace BackendLab01.Pages
 {
@@ -29,11 +30,16 @@ namespace BackendLab01.Pages
         [BindProperty]
         public int ItemId { get; set; }
         
-        public void OnGet(int quizId, int itemId)
+        public IActionResult OnGet(int quizId, int itemId)
         {
             QuizId = quizId;
             ItemId = itemId;
             var quiz = _userService.FindQuizById(quizId);
+            if (quiz == null || quiz.Items.Count == 0 || itemId > quiz.Items.Count)
+            {
+                _logger.LogWarning("Quiz Id {QuizId} not found", quizId);
+                return RedirectToPage("Summary", new {quizId = quizId, itemId = itemId});
+            }
             var quizItem = quiz?.Items[itemId - 1];
             Question = quizItem?.Question;
             Answers = new List<string>();
@@ -42,11 +48,19 @@ namespace BackendLab01.Pages
                 Answers.AddRange(quizItem?.IncorrectAnswers);
                 Answers.Add(quizItem?.CorrectAnswer);
             }
+            var quizItemId = quiz.Items[itemId - 1];
+            if (quizItemId != null)
+            {
+                Question = quizItemId?.Question;
+                Answers = new List<string>(quizItemId.IncorrectAnswers) { quizItem.CorrectAnswer };
+            }
+
+            return Page();
         }
 
         public IActionResult OnPost()
         {
-            return RedirectToPage("Item", new {quizId = QuizId, itemId = ItemId + 1});
+                return RedirectToPage("Item", new { quizId = QuizId, itemId = ItemId + 1 });
         }
     }
 }
