@@ -1,8 +1,12 @@
 ﻿@page "{quizId}/{itemId}"
 @model BackendLab01.Pages.Summary
 @{
-    ViewData["Title"] = "summary";
+    ViewData["Title"] = "Podsumowanie Quizu";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
 <H3>@ViewData["Title"]</H3>
+
+<p>Udzieliłeś <strong>@Model.CorrectAnswersCount</strong> poprawnych odpowiedzi.</p>
+
+<a asp-page="/Index" class="btn btn-primary">Powrót do strony głównej</a>

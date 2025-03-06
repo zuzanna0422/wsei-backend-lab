@@ -20,15 +20,17 @@ namespace BackendLab01.Pages
         public string Question { get; set; }
         [BindProperty]
         public List<string> Answers { get; set; }
-        
-        [BindProperty]
-        public String UserAnswer { get; set; }
+
+        [BindProperty] public String UserAnswer { get; set; } = string.Empty;
         
         [BindProperty]
         public int QuizId { get; set; }
         
         [BindProperty]
         public int ItemId { get; set; }
+        
+        [TempData]
+        public string ErrorMessage { get; set; }
         
         public IActionResult OnGet(int quizId, int itemId)
         {
@@ -60,6 +62,19 @@ namespace BackendLab01.Pages
 
         public IActionResult OnPost()
         {
+            if (string.IsNullOrEmpty(UserAnswer))
+            {
+                ErrorMessage = "Musisz odpowiedziec zanim przejdziesz dalej!";
+                _logger.LogWarning("Uzytkonik nie podal odpowiedzi");
+            }
+            _userService.SaveUserAnswerForQuiz(
+                quizId: QuizId, 
+                userId: 1, 
+                quizItemId: ItemId, 
+                answer: UserAnswer
+            );
+            _logger.LogInformation("Zapisuję odpowiedź: QuizId={QuizId}, UserId={UserId}, ItemId={ItemId}, Answer={UserAnswer}", 
+                QuizId, 1, ItemId, UserAnswer);
                 return RedirectToPage("Item", new { quizId = QuizId, itemId = ItemId + 1 });
         }
     }

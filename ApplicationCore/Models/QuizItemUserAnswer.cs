@@ -7,21 +7,29 @@ public class QuizItemUserAnswer(QuizItem quizItem, int userId, int quizId, strin
     : IIdentity<string>
 {
     public int QuizId { get; } = quizId;
-    public QuizItem  QuizItem{ get; } = quizItem;
+    public QuizItem QuizItem { get; } = quizItem;
     public int UserId { get; } = userId;
     public string Answer { get; } = answer;
 
     public bool IsCorrect()
     {
-        return QuizItem.CorrectAnswer == Answer;
+        Console.WriteLine($"Checking Correctness:");
+        Console.WriteLine($"Correct Answer: '{QuizItem.CorrectAnswer}'");
+        Console.WriteLine($"User Answer: '{Answer}'");
+        
+        var result = string.Equals(
+            QuizItem.CorrectAnswer?.Trim().ToLowerInvariant(), 
+            Answer?.Trim().ToLowerInvariant(), 
+            StringComparison.Ordinal
+        );
+        
+        Console.WriteLine($"Is Correct: {result}");
+        return result;
     }
 
     public string Id
     {
         get => $"{QuizId}-{UserId}-{QuizItem.Id}";
-        set
-        {
-            
-        }
+        set { }
     }
 }
