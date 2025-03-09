@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastru
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{103ACBBC-8892-456B-BD24-B296EFDF8F31}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorChat", "BlazorChat\BlazorChat.csproj", "{28A03FCB-8613-4E0B-94ED-C57B1E9828DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{103ACBBC-8892-456B-BD24-B296EFDF8F31}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{103ACBBC-8892-456B-BD24-B296EFDF8F31}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{103ACBBC-8892-456B-BD24-B296EFDF8F31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28A03FCB-8613-4E0B-94ED-C57B1E9828DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28A03FCB-8613-4E0B-94ED-C57B1E9828DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28A03FCB-8613-4E0B-94ED-C57B1E9828DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28A03FCB-8613-4E0B-94ED-C57B1E9828DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
